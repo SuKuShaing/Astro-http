@@ -1,26 +1,18 @@
 import type { APIRoute, GetStaticPaths } from "astro";
-import { getEntry } from "astro:content";
-import { getStaticPaths } from "../../blog/[...slug].astro";
 
 export const prerender = false;
 
 // GET
-// en este caso se están generando las rutas con los params solicitados al servidor, no el slug
+// en este caso se están generando las rutas con los params solicitados al servido
 export const GET: APIRoute = async ({ params, request }) => {
-	const { slug } = params;
+    // entre corchetes puedo usar cualquier nombre, el que mejor describa el parámetro que esperas en la URL
+	const { clientId } = params;
 
-	const post = await getEntry("blog", slug as any);
-
-	if (!post) {
-		return new Response(JSON.stringify({ error: `Post ${slug} not found` }), {
-			status: 404,
-			headers: {
-				"Content-Type": "application/json",
-			},
-		});
-	}
-
-	return new Response(JSON.stringify(post), {
+	return new Response(JSON.stringify({
+        method: "GET",
+        clientId: 1,
+        slug: clientId,
+    }), {
 		status: 200,
 		headers: {
 			"Content-Type": "application/json",
@@ -28,21 +20,15 @@ export const GET: APIRoute = async ({ params, request }) => {
 	});
 };
 
-// export const getStaticPaths: GetStaticPaths = async () => {
-//     return [
-//         {
-//             params: {
-//                 slug: "first-post",}
-//         }
-//     ]
-// }
-
 // POST 
 export const POST: APIRoute = async ({ params, request }) => {
+    const { clientId } = params;
     const body = await request.json();
 
 	return new Response(JSON.stringify({
         method: "POST",
+        clientId: 1,
+        slug: clientId,
         ...body,
     }), {
 		status: 200,
@@ -54,10 +40,13 @@ export const POST: APIRoute = async ({ params, request }) => {
 
 // PUT
 export const PUT: APIRoute = async ({ params, request }) => {
+    const { clientId } = params;
     const body = await request.json();
 
 	return new Response(JSON.stringify({
         method: "PUT",
+        clientId: 1,
+        slug: clientId,
         ...body,
     }), {
 		status: 200,
@@ -69,10 +58,13 @@ export const PUT: APIRoute = async ({ params, request }) => {
 
 // PATCH
 export const PATCH: APIRoute = async ({ params, request }) => {
+    const { clientId } = params;
     const body = await request.json();
 
     return new Response(JSON.stringify({
         method: "PATCH",
+        clientId: 1,
+        slug: clientId,
         ...body,
     }), {
         status: 200,
@@ -84,13 +76,12 @@ export const PATCH: APIRoute = async ({ params, request }) => {
 
 // DELETE
 export const DELETE: APIRoute = async ({ params, request }) => {
-    const { slug } = params;
-
-    const body = await request.json();
+    const { clientId } = params;
 
     return new Response(JSON.stringify({
         method: "DELETE",
-        slug: `slug ${slug} deleted`,
+        clientId: 1,
+        slug: clientId,
     }), {
         status: 200,
         headers: {
