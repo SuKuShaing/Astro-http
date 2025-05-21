@@ -1,7 +1,7 @@
 import type { APIRoute, GetStaticPaths } from "astro";
 import { Clients, db, eq } from "astro:db";
 
-export const prerender = false;
+export const prerender = true;
 
 // GET
 // en este caso se están generando las rutas con los params solicitados al servido
