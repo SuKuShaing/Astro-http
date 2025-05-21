@@ -1,7 +1,7 @@
 import type { APIRoute } from "astro";
 import { getCollection } from "astro:content";
 
-export const prerender = false;
+export const prerender = true;
 
 export const GET: APIRoute = async ({ params, request }) => {
     // const post = await getEntry("blog", params.slug); para buscar solo un post en especifico y no traerlos todos
