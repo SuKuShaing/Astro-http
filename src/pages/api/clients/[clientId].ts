@@ -11,6 +11,20 @@ export const GET: APIRoute = async ({ params, request }) => {
 
 	const user = await db.select().from(Clients).where(eq(Clients.id, +clientId));
 
+	if (user.length === 0) {
+		return new Response(
+			JSON.stringify({
+				msg: `Client ${clientId} not found`,
+			}),
+			{
+				status: 404,
+				headers: {
+					"Content-Type": "application/json",
+				},
+			}
+		);
+	}
+
 	return new Response(JSON.stringify(user), {
 		status: 200,
 		headers: {
