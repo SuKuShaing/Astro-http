@@ -2,7 +2,7 @@ import type { APIRoute, GetStaticPaths } from "astro";
 import { getEntry } from "astro:content";
 import { getStaticPaths } from "../../blog/[...slug].astro";
 
-export const prerender = true;
+export const prerender = false;
 
 // GET
 // en este caso se están generando las rutas con los params solicitados al servidor, no el slug
