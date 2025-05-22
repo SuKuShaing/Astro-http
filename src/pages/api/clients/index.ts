@@ -50,7 +50,7 @@ export const POST: APIRoute = async ({ params, request }) => {
 	} catch (error) {
 		console.error("🚀 ~ constPOST:APIRoute= ~ error:", error)
 		return new Response(
-			JSON.stringify({msg: 'No body found'}),
+			JSON.stringify({msg: 'No body found', error: error}),
 			{
 				status: 400,
 				headers: {
