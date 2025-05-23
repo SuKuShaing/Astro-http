@@ -12,12 +12,12 @@ import db from '@astrojs/db';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://example.com',
+  integrations: [mdx(), sitemap(), db()],
 
-  output: "server",
+  output: "static",
   // adapter: node({
   //   mode: 'standalone',
   // }),
-  integrations: [mdx(), sitemap(), db()],
 
   adapter: cloudflare(),
 });
